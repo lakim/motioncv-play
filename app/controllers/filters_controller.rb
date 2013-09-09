@@ -2,19 +2,17 @@ class FiltersController < UITableViewController
 
   CELL_IDENTIFIER = "filterCell"
 
-  attr_accessor :delegate
-
   # View lifecycle
 
   def viewDidLoad
     super
+    self.title = "Filters"
     tableView.registerClass(UITableViewCell, forCellReuseIdentifier:CELL_IDENTIFIER)
   end
 
-  # Accessors
-
-  def delegate=(delegate)
-    @delegate = WeakRef.new(delegate)
+  def viewDidAppear(animated)
+    super
+    Image.instance.reset
   end
 
   # UITableViewDataSource
@@ -25,14 +23,16 @@ class FiltersController < UITableViewController
 
   def tableView(tableView, cellForRowAtIndexPath:indexPath)
     cell = tableView.dequeueReusableCellWithIdentifier(CELL_IDENTIFIER)
-    cell.textLabel.text = Filter.filterAtIndex(indexPath.row).name
+    cell.textLabel.text = Filter.titleAtIndex(indexPath.row)
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator
     cell
   end
 
   # UITableViewDelegate
 
   def tableView(tableView, didSelectRowAtIndexPath:indexPath)
-    delegate.applyFilterAtIndex(indexPath.row)
+    viewController = ParamsController.alloc.initWithFilter(Filter.filterWithIndex(indexPath.row))
+    self.navigationController.pushViewController(viewController, animated: true)
   end
 
 end
