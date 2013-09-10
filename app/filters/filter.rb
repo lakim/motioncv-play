@@ -24,12 +24,16 @@ class Filter
   end
 
   def initialize
-    attributes.each do |attr|
-      self.class.class_eval { attr_accessor attr }
-      observe(self, attr) do |oldValue, newValue|
+    attributes.each do |name|
+      self.class.class_eval { attr_accessor name }
+      observe(self, name) do |oldValue, newValue|
         apply
       end
     end
+  end
+
+  def updateImage(dstMat)
+    Image.instance.dst = MotionCV.UIImageFromMotionMat(dstMat)
   end
 
 end

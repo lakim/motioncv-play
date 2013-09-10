@@ -12,7 +12,7 @@ class CvtColor < Filter
   def apply
     dstMat = MotionMat.new
     Cv::cvtColor(Image.instance.srcMat, dstMat, Kernel.const_get(code))
-    Image.instance.dst = MotionCV.UIImageFromMotionMat(dstMat)
+    updateImage(dstMat)
   end
 
   private
@@ -22,7 +22,13 @@ class CvtColor < Filter
   # directly in your code, they don't get added
   # to Kernel and const_get will crash
   def constantsHack
-    [ CV_RGB2GRAY, CV_RGB2XYZ, CV_RGB2YCrCb, CV_RGB2HSV, CV_RGB2HLS, CV_RGB2Lab, CV_RGB2Luv ]
+    CV_RGB2GRAY
+    CV_RGB2XYZ
+    CV_RGB2YCrCb
+    CV_RGB2HSV
+    CV_RGB2HLS
+    CV_RGB2Lab
+    CV_RGB2Luv
   end
 
 end
