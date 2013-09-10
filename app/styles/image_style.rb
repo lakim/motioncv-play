@@ -1,4 +1,4 @@
 Teacup::Stylesheet.new :imageStyle do
-  style :imageView,
+  style :scrollView,
     constraints: [ :full ]
 end
