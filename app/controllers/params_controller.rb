@@ -5,4 +5,10 @@ class ParamsController < Formotion::FormableController
     initWithModel(filter)
   end
 
+  def viewDidAppear(animated)
+    super
+    @filter.observeAttributes
+    @filter.apply
+  end
+
 end

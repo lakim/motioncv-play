@@ -5,19 +5,22 @@ class AdaptiveThreshold < Filter
   BLOCK_SIZES = (3..1000).to_a.select{ |i| i % 2 == 1 }.map{ |i| i.to_s }
 
   form_title name
-  form_property :maxValue, :slider, range: (1..255), value: 255
-  form_property :adaptiveMethod, :picker, items: ADAPTIVE_METHODS, value: ADAPTIVE_METHODS.first
-  form_property :thresholdType, :picker, items: THRESHOLD_TYPES, value: THRESHOLD_TYPES.first
-  form_property :blockSize, :picker, items: BLOCK_SIZES, value: BLOCK_SIZES[4]
-  form_property :constant, :number, value: 10
+  form_property :maxValue, :slider, range: (1..255)
+  form_property :adaptiveMethod, :picker, items: ADAPTIVE_METHODS
+  form_property :thresholdType, :picker, items: THRESHOLD_TYPES
+  form_property :blockSize, :picker, items: BLOCK_SIZES
+  form_property :constant, :number
 
-  def attributes
-    @attributes ||= [ :maxValue, :adaptiveMethod, :thresholdType, :blockSize, :constant ]
+  form_properties.each do |prop|
+    attr_writer prop[:property]
   end
+  def maxValue; @maxValue ||= 255; end
+  def adaptiveMethod; @adaptiveMethod ||= ADAPTIVE_METHODS.first; end
+  def thresholdType; @thresholdType ||= THRESHOLD_TYPES.first; end
+  def blockSize; @blockSize ||= BLOCK_SIZES[4]; end
+  def constant; @constant ||= 10; end
 
   def apply
-    self.maxValue ||= 255 # Hack, because maxValue is not set at first
-    return if attributes.any? { |name| send(name).nil? }
     dstMat = MotionMat.new
     Cv::cvtColor(Image.instance.srcMat, dstMat, CV_RGB2GRAY)
     Cv::adaptiveThreshold(dstMat, dstMat, maxValue, Kernel.const_get(adaptiveMethod), Kernel.const_get(thresholdType), blockSize.to_i, constant.to_i)
@@ -26,7 +29,7 @@ class AdaptiveThreshold < Filter
 
   private
 
-  # Looks like RubyMotiononly  adds constants
+  # Looks like RubyMotion only adds constants
   # at compile time. If you don't use these
   # directly in your code, they don't get added
   # to Kernel and const_get will crash

@@ -23,10 +23,9 @@ class Filter
     all[index].form_title
   end
 
-  def initialize
-    attributes.each do |name|
-      self.class.class_eval { attr_accessor name }
-      observe(self, name) do |oldValue, newValue|
+  def observeAttributes
+    self.class.form_properties.each do |prop|
+      observe(self, prop[:property]) do |oldValue, newValue|
         apply
       end
     end
