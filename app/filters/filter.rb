@@ -23,12 +23,8 @@ class Filter
     all[index].form_title
   end
 
-  def observeAttributes
-    self.class.form_properties.each do |prop|
-      observe(self, prop[:property]) do |oldValue, newValue|
-        apply
-      end
-    end
+  def valid?
+    true
   end
 
   def updateImage(dstMat)

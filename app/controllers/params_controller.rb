@@ -5,9 +5,22 @@ class ParamsController < Formotion::FormableController
     initWithModel(filter)
   end
 
+  def viewWillAppear(animated)
+    super
+    navigationItem.rightBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Update", style: UIBarButtonItemStylePlain, target: self, action: "submit")
+  end
+
   def viewDidAppear(animated)
     super
-    @filter.observeAttributes
+    @filter.apply
+  end
+
+  def submit
+    view.endEditing(true)
+    if !@filter.valid?
+      App.alert("Invalid parameters")
+      return
+    end
     @filter.apply
   end
 

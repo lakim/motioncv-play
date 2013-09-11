@@ -9,7 +9,7 @@ class CvtColor < Filter
     attr_writer prop[:property]
   end
   def code; @code ||= CODES.first; end
-    
+
   def apply
     dstMat = MotionMat.new
     Cv::cvtColor(Image.instance.srcMat, dstMat, Kernel.const_get(code))
