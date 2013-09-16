@@ -1,3 +1,3 @@
 [submodule "vendor/opencv"]
 	path = vendor/opencv
-	url = https://github.com/iwazer/opencv.git
+	url = https://github.com/lakim/opencv.git
