@@ -22,8 +22,8 @@ class Blur < Filter
   end
   def ksizeWidth; @ksizeWidth ||= 50; end
   def ksizeHeight; @ksizeHeight ||= 50; end
-  def anchorX; @anchorX ||= -1; end
-  def anchorY; @anchorY ||= -1; end
+  def anchorX; @anchorX ||= 0; end
+  def anchorY; @anchorY ||= 0; end
   def borderType; @borderType ||= BORDER_TYPES[4]; end
 
   def valid?
