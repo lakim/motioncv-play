@@ -27,17 +27,4 @@ class AdaptiveThreshold < Filter
     updateImage(dstMat)
   end
 
-  private
-
-  # Looks like RubyMotion only adds constants
-  # at compile time. If you don't use these
-  # directly in your code, they don't get added
-  # to Kernel and const_get will crash
-  def constantsHack
-    CV_THRESH_BINARY
-    CV_THRESH_BINARY_INV
-    CV_ADAPTIVE_THRESH_MEAN_C
-    CV_ADAPTIVE_THRESH_GAUSSIAN_C
-  end
-
 end

@@ -36,14 +36,4 @@ class Blur < Filter
     updateImage(dstMat)
   end
 
-  def constantsHack
-    MCV_BORDER_REPLICATE
-    MCV_BORDER_REFLECT
-    MCV_BORDER_WRAP
-    MCV_BORDER_REFLECT_101
-    MCV_BORDER_DEFAULT
-    MCV_BORDER_TRANSPARENT
-    MCV_BORDER_ISOLATED
-  end
-
 end
