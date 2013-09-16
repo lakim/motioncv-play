@@ -8,7 +8,7 @@ class Image
   end
 
   def src
-    @src ||= UIImage.imageNamed("receipt.jpg")
+    @src ||= UIImage.imageNamed("sato.jpg")
   end
 
   def srcMat
