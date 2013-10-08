@@ -28,7 +28,7 @@ class Filter
   end
 
   def updateImage(dstMat)
-    Image.instance.dst = MotionCV.UIImageFromMotionMat(dstMat)
+    Image.instance.dst = Cv::UIImageFromMotionMat(dstMat)
   end
 
   # Looks like RubyMotion only adds constants

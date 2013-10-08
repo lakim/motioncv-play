@@ -12,7 +12,7 @@ class Image
   end
 
   def srcMat
-    @srcMat ||= MotionCV.MotionMatFromUIImage(src)
+    @srcMat ||= Cv::MotionMatFromUIImage(src)
   end
 
   def reset
